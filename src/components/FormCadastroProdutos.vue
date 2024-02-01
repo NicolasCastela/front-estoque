@@ -30,11 +30,20 @@
       </template>
 
       <template v-slot:item.2>
-        <v-card title="Quantidade no Estoque" flat>
-          <v-sheet class="mx-auto">
-            <v-form fast-fail @submit.prevent>
-              <v-text-field label="Quantidade"></v-text-field>
-            </v-form>
+        <v-card class="text-center" title="Quantidade e Valor do Produto" flat>
+          <v-sheet>
+            <div class="d-flex flex-wrap">
+              <v-form class="w-100" fast-fail @submit.prevent>
+                <v-row>
+                  <v-col cols="12" sm="6">
+                    <v-text-field label="Quantidade"></v-text-field>
+                  </v-col>
+                  <v-col cols="12" sm="6">
+                    <v-text-field label="Preço"></v-text-field>
+                  </v-col>
+                </v-row>
+              </v-form>
+            </div>
           </v-sheet>
         </v-card>
       </template>
