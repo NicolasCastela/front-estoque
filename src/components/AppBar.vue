@@ -46,9 +46,7 @@ export default defineComponent({
       drawerzin: false,
     };
   },
-  mounted() {
-    this.drawerzin = false;
-  },
+  mounted() {},
   methods: {
     toggleDrawer() {
       this.drawerzin = !this.drawerzin;
