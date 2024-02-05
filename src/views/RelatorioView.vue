@@ -14,18 +14,13 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import AppBar from "@/components/AppBar.vue";
-
-interface User {
-  email: string;
-  password: string;
-  name: string;
-}
+import { User as UserServiceUser, getUsers } from "@/services/usuarios.service";
 
 export default defineComponent({
   name: "RelatorioView",
   data() {
     return {
-      allUsers: [] as User[],
+      allUsers: [] as UserServiceUser[],
     };
   },
   components: {
@@ -36,22 +31,7 @@ export default defineComponent({
   },
   methods: {
     async getUsers() {
-      try {
-        const response = await fetch("http://localhost:3000/users", {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
-        if (!response.ok) {
-          throw new Error("Erro ao buscar usuários");
-        } else {
-          const data = await response.json();
-          this.allUsers = data;
-        }
-      } catch (error) {
-        console.error(error);
-      }
+      this.allUsers = await getUsers();
     },
   },
 });
