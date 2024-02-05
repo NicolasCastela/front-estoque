@@ -14,19 +14,22 @@
                       Portal
                       <br />
                     </h6>
+                    <h5 class="text-center grey--text mt-10">Ola</h5>
                     <v-row align="center" justify="center">
                       <v-col cols="12" sm="8">
                         <v-text-field
                           label="Email"
                           outlined
                           dense
+                          v-model="loginEmail"
                           color="blue"
                           autocomplete="false"
-                          class="mt-16"
+                          class="mt-10"
                         />
                         <v-text-field
                           label="Password"
                           outlined
+                          v-model="loginPassword"
                           dense
                           color="blue"
                           autocomplete="false"
@@ -47,7 +50,9 @@
                             >
                           </v-col>
                         </v-row>
-                        <v-btn color="blue" dark block tile>Entrar</v-btn>
+                        <v-btn color="blue" @click="login()" dark block tile
+                          >Entrar</v-btn
+                        >
                         <v-btn to="dashboard" color="blue" dark block tile
                           >DashBoard</v-btn
                         >
@@ -167,12 +172,33 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import { LoginResponse, loginUser } from "@/services/usuarios.service";
+
 export default defineComponent({
   name: "Login",
   data() {
     return {
       step: 1,
+      loginEmail: "",
+      loginPassword: "",
     };
+  },
+  methods: {
+    async login() {
+      try {
+        const response: LoginResponse = await loginUser(
+          this.loginEmail,
+          this.loginPassword
+        );
+        if (response) {
+          this.$router.push("/dashboard");
+        } else {
+          console.log("Usuário ou senha inválidos");
+        }
+      } catch (er) {
+        console.log(er);
+      }
+    },
   },
 });
 </script>
