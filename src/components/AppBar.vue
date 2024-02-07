@@ -23,7 +23,7 @@
       <v-divider />
       <v-list-item to="/Produtos" link title="Produtos"></v-list-item>
       <v-divider />
-      <v-list-item link title="Relatório"></v-list-item>
+      <v-list-item to="/Relatorio" link title="Relatório"></v-list-item>
       <v-divider />
       <v-list-item link title="Vendas"></v-list-item>
       <v-divider />

@@ -14,7 +14,10 @@
                       Portal
                       <br />
                     </h6>
-                    <h5 class="text-center grey--text mt-10">Ola</h5>
+                    <v-alert type="error" title="Credenciais inválidas.">
+                    </v-alert>
+                    {{ messageFailed }}
+
                     <v-row align="center" justify="center">
                       <v-col cols="12" sm="8">
                         <v-text-field
@@ -181,6 +184,7 @@ export default defineComponent({
       step: 1,
       loginEmail: "",
       loginPassword: "",
+      messageFailed: "",
     };
   },
   methods: {
@@ -192,11 +196,13 @@ export default defineComponent({
         );
         if (response) {
           this.$router.push("/dashboard");
-        } else {
-          console.log("Usuário ou senha inválidos");
         }
-      } catch (er) {
-        console.log(er);
+      } catch (error: any) {
+        console.log(error);
+        this.messageFailed = error.message;
+
+        // if (error.response && error.response.status === 401) {
+        //   this.messageFailed = "Credenciais inválidas";
       }
     },
   },

@@ -46,15 +46,18 @@ async function loginUser(
       }),
     });
     if (!response.ok) {
-      console.log("OLA ESSE É O CONSUMO.", response);
-      throw new Error(
-        "Erro na resposta do consumo, verificar headers,body e method"
-      );
+      throw new Error("Email ou senha incorreta, tente novamente.");
     }
     const data = await response.json();
     return data;
-  } catch (error) {}
-  throw new Error(" Erro ao fazer login, credenciais invalidas.");
+  } catch (error) {
+    if (
+      (error as Error).message === "Erro ao fazer login, credenciais invalidas."
+    ) {
+      throw new Error(" Erro ao fazer login, credenciais invalidas.");
+    }
+    throw error;
+  }
 }
 
 export { User, getUsers, loginUser, LoginResponse };
