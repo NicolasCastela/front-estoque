@@ -5,6 +5,7 @@
         class="mr-10"
         @click="toggleDrawer()"
       ></v-app-bar-nav-icon>
+
       <router-link to="/">
         <v-img
           :width="100"
@@ -15,6 +16,7 @@
       </router-link>
 
       <template v-slot:append>
+        <h4>{{ name }}</h4>
         <v-btn icon="mdi-dots-vertical"></v-btn>
       </template>
     </v-app-bar>
@@ -39,14 +41,21 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import { LoginResponse, loginUser } from "@/services/usuarios.service";
 export default defineComponent({
   name: "AppBar",
   data() {
     return {
       drawerzin: false,
+      name: "ola",
     };
   },
-  mounted() {},
+  mounted() {
+    const userName = localStorage.getItem("userName");
+    if (userName) {
+      this.name = userName;
+    }
+  },
   methods: {
     toggleDrawer() {
       this.drawerzin = !this.drawerzin;

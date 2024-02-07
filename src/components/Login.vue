@@ -15,8 +15,8 @@
                       <br />
                     </h6>
                     <v-alert type="error" title="Credenciais inválidas.">
+                      {{ messageFailed }}
                     </v-alert>
-                    {{ messageFailed }}
 
                     <v-row align="center" justify="center">
                       <v-col cols="12" sm="8">
@@ -185,8 +185,16 @@ export default defineComponent({
       loginEmail: "",
       loginPassword: "",
       messageFailed: "",
+      user: "",
     };
   },
+  mounted() {
+    const userName = localStorage.getItem("userName");
+    if (userName) {
+      this.$router.push("/dashboard");
+    }
+  },
+
   methods: {
     async login() {
       try {
@@ -195,6 +203,8 @@ export default defineComponent({
           this.loginPassword
         );
         if (response) {
+          localStorage.setItem("userName", response.name);
+          localStorage.setItem("Token", response.token);
           this.$router.push("/dashboard");
         }
       } catch (error: any) {

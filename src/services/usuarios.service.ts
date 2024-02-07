@@ -3,11 +3,14 @@ interface User {
   name: string;
   email: string;
   password: string;
+  token: string;
 }
 
 interface LoginResponse {
+  name: string;
   email: string;
   password: string;
+  token: string;
 }
 
 async function getUsers(): Promise<User[]> {
