@@ -204,7 +204,6 @@ export default defineComponent({
         );
         if (response) {
           localStorage.setItem("userName", response.name);
-          localStorage.setItem("Token", response.token);
           this.$router.push("/dashboard");
         }
       } catch (error: any) {

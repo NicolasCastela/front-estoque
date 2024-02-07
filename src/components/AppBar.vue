@@ -17,7 +17,13 @@
 
       <template v-slot:append>
         <h4>{{ name }}</h4>
-        <v-btn icon="mdi-dots-vertical"></v-btn>
+        <v-btn
+          @click="logout()"
+          variant="tonal"
+          color="red"
+          icon="mdi-dots-vertical"
+          >Exit</v-btn
+        >
       </template>
     </v-app-bar>
     <v-navigation-drawer v-model="drawerzin" class="">
@@ -59,6 +65,11 @@ export default defineComponent({
   methods: {
     toggleDrawer() {
       this.drawerzin = !this.drawerzin;
+    },
+    logout() {
+      localStorage.removeItem("userName");
+      localStorage.removeItem("Token");
+      this.$router.push("/");
     },
   },
 });

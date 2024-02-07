@@ -1,4 +1,9 @@
-//User Service  -  Service to manage users
+/**
+ * User Service - Service to manage user
+ */
+/**
+ * User Service - Service to manage user
+ */
 interface User {
   name: string;
   email: string;
@@ -6,6 +11,9 @@ interface User {
   token: string;
 }
 
+/**
+ * Login response interface
+ */
 interface LoginResponse {
   name: string;
   email: string;
@@ -13,6 +21,10 @@ interface LoginResponse {
   token: string;
 }
 
+/**
+ * Get all users
+ * @returns Promise<User[]> - A promise that resolves to an array of User objects
+ */
 async function getUsers(): Promise<User[]> {
   try {
     const response = await fetch("http://localhost:3000/users", {
@@ -33,6 +45,12 @@ async function getUsers(): Promise<User[]> {
   }
 }
 
+/**
+ * Login user
+ * @param email - The user's email
+ * @param password - The user's password
+ * @returns Promise<LoginResponse> - A promise that resolves to a LoginResponse object
+ */
 async function loginUser(
   email: string,
   password: string
