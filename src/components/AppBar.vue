@@ -15,15 +15,14 @@
         ></v-img>
       </router-link>
 
+      <template>
+        <v-card class="mx-auto" max-width="300">
+          <v-list :items="items"></v-list>
+        </v-card>
+      </template>
       <template v-slot:append>
-        <h4>{{ name }}</h4>
-        <v-btn
-          @click="logout()"
-          variant="tonal"
-          color="red"
-          icon="mdi-dots-vertical"
-          >Exit</v-btn
         >
+        <PerfilAppBar />
       </template>
     </v-app-bar>
     <v-navigation-drawer v-model="drawerzin" class="">
@@ -48,19 +47,31 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import { LoginResponse, loginUser } from "@/services/usuarios.service";
+import PerfilAppBar from "@/Adds/PerfilAppBar.vue";
+
 export default defineComponent({
   name: "AppBar",
   data() {
     return {
       drawerzin: false,
-      name: "ola",
+      items: [
+        {
+          title: "Item #1",
+          value: 1,
+        },
+        {
+          title: "Item #2",
+          value: 2,
+        },
+        {
+          title: "Item #3",
+          value: 3,
+        },
+      ],
     };
   },
   mounted() {
     const userName = localStorage.getItem("userName");
-    if (userName) {
-      this.name = userName;
-    }
   },
   methods: {
     toggleDrawer() {
@@ -71,6 +82,9 @@ export default defineComponent({
       localStorage.removeItem("Token");
       this.$router.push("/");
     },
+  },
+  components: {
+    PerfilAppBar,
   },
 });
 </script>

@@ -14,7 +14,14 @@
                       Portal
                       <br />
                     </h6>
-                    <v-alert type="error" title="Credenciais inválidas.">
+                    <v-alert
+                      class="mt-4"
+                      width="50%"
+                      w
+                      v-show="messageFailed"
+                      type="error"
+                      title="Credenciais inválidas."
+                    >
                       {{ messageFailed }}
                     </v-alert>
 
@@ -55,9 +62,6 @@
                         </v-row>
                         <v-btn color="blue" @click="login()" dark block tile
                           >Entrar</v-btn
-                        >
-                        <v-btn to="dashboard" color="blue" dark block tile
-                          >DashBoard</v-btn
                         >
 
                         <h5 class="text-center grey--text mt-4 mb-3"></h5>
@@ -107,28 +111,14 @@
                     </h6>
                     <v-row align="center" justify="center">
                       <v-col cols="12" sm="8">
-                        <v-row>
-                          <v-col cols="12" sm="6">
-                            <v-text-field
-                              label="First Name"
-                              outlined
-                              dense
-                              color="blue"
-                              autocomplete="false"
-                              class="mt-4"
-                            />
-                          </v-col>
-                          <v-col cols="12" sm="6">
-                            <v-text-field
-                              label="Last Name"
-                              outlined
-                              dense
-                              color="blue"
-                              autocomplete="false"
-                              class="mt-4"
-                            />
-                          </v-col>
-                        </v-row>
+                        <v-text-field
+                          label="Nome"
+                          outlined
+                          dense
+                          color="blue"
+                          autocomplete="false"
+                          class="mt-4"
+                        />
                         <v-text-field
                           label="Email"
                           outlined
@@ -145,18 +135,18 @@
                           type="password"
                         />
                         <v-row>
-                          <v-col cols="12" sm="7">
+                          <v-col cols="12" sm="9">
                             <v-checkbox
-                              label="Eu aceito os termos"
-                              class="mt-n1"
+                              label="Eu aceito o termo"
+                              class="mt-n3"
                               color="blue"
                             >
                             </v-checkbox>
                           </v-col>
-                          <v-col cols="12" sm="5">
-                            <span class="caption blue--text ml-n4"
-                              >Termos & Condições</span
-                            >
+                          <v-col cols="12" sm="2">
+                            <span class="caption blue--text ml-n4">
+                              <TermoServicos
+                            /></span>
                           </v-col>
                         </v-row>
                         <v-btn color="blue" dark block tile>Criar conta</v-btn>
@@ -176,7 +166,7 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import { LoginResponse, loginUser } from "@/services/usuarios.service";
-
+import TermoServicos from "@/Adds/TermoServicos.vue";
 export default defineComponent({
   name: "Login",
   data() {
@@ -214,6 +204,9 @@ export default defineComponent({
         //   this.messageFailed = "Credenciais inválidas";
       }
     },
+  },
+  components: {
+    TermoServicos,
   },
 });
 </script>

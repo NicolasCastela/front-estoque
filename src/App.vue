@@ -8,7 +8,7 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-
+import AppBar from "./components/AppBar.vue";
 export default defineComponent({
   name: "App",
 
@@ -16,6 +16,9 @@ export default defineComponent({
     return {
       //
     };
+  },
+  components: {
+    AppBar,
   },
 });
 </script>
