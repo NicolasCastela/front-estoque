@@ -21,7 +21,6 @@
         </v-card>
       </template>
       <template v-slot:append>
-        >
         <PerfilAppBar />
       </template>
     </v-app-bar>
