@@ -64,7 +64,15 @@
       </template>
 
       <template v-slot:item.3>
-        <v-card title="Confira as informações colocadas" flat> </v-card>
+        <v-card title="Confira as informações colocadas" flat>
+          <h3>Nome do Produto: {{ nome }}</h3>
+          <h3>Marca: {{ marca }}</h3>
+          <h3>Categoria: {{ categoria }}</h3>
+          <h3>Autor: {{ autor }}</h3>
+          <h3>Quantidade {{ quantidade }}</h3>
+          <h3>Valor: {{ valor }}</h3>
+          <h4>{{ cod_prod }}</h4>
+        </v-card>
         <div class="d-flex justify-end">
           <v-btn @click="CreateProduto()" color="primary">Finalizar</v-btn>
         </div>
@@ -81,14 +89,15 @@ export default defineComponent({
   data() {
     return {
       nome: "",
-      quantidade: 0,
-      valor: 0,
+      quantidade: "",
+      valor: "",
       marca: "",
       categoria: "",
-      cod_prod: 10,
+      cod_prod: 12312321,
       autor: "",
     };
   },
+
   methods: {
     async consumirApi() {
       try {
@@ -106,12 +115,17 @@ export default defineComponent({
           return respostaConsumo;
         }
       } catch (error) {
-        throw new Error("sexo");
+        console.error("Erro de rede ao criar produto", error);
+
+        throw Error("sexoasdasdasdasdasd");
       }
     },
 
     async CreateProduto() {
       try {
+        this.cod_prod = Math.floor(Math.random() * 100000000) + 1;
+        const quantidade = parseInt(this.quantidade);
+        const valor = parseInt(this.valor);
         const res = await fetch("http://localhost:3000/produtos", {
           method: "POST",
           headers: {
@@ -121,8 +135,8 @@ export default defineComponent({
             nome: this.nome,
             marca: this.marca,
             categoria: this.categoria,
-            quantidade: this.quantidade,
-            valor: this.valor,
+            quantidade,
+            valor,
             cod_prod: this.cod_prod,
             autor: this.autor,
           }),
