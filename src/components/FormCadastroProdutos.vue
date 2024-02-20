@@ -15,16 +15,28 @@
             title="Informaçõs do  Produto"
             flat
           >
-            <v-text-field label="Nome do Produto"></v-text-field>
-            <v-text-field label="Marca"></v-text-field>
-            <v-select
-              label="Categoria"
-              :items="['Carro', 'Caminhão', 'Trator']"
-            ></v-select>
+            <v-btn @click="consumirApi()">Ola</v-btn>
+            <v-text-field v-model="nome" label="Nome do Produto"></v-text-field>
+            <v-text-field v-model="marca" label="Marca"></v-text-field>
+            <v-text-field v-model="categoria" label="Categoria"></v-text-field>
           </v-card>
           <!--Separar para ficar mais nitido-->
-          <v-card class="mx-auto" width="400" title="Descrição do Produto" flat>
-            <v-text-field class="h-100"></v-text-field>
+          <v-card
+            class="mx-auto"
+            width="400"
+            title="Informações adicionais"
+            flat
+          >
+            <v-text-field
+              v-model="autor"
+              label="Autor"
+              class="h-10 mt-9"
+            ></v-text-field>
+            <v-text-field
+              v-model="cod_prod"
+              label="Codigo do Produto"
+              class="h-10"
+            ></v-text-field>
           </v-card>
         </v-sheet>
       </template>
@@ -36,10 +48,13 @@
               <v-form class="w-100" fast-fail @submit.prevent>
                 <v-row>
                   <v-col cols="12" sm="6">
-                    <v-text-field label="Quantidade"></v-text-field>
+                    <v-text-field
+                      v-model="quantidade"
+                      label="Quantidade"
+                    ></v-text-field>
                   </v-col>
                   <v-col cols="12" sm="6">
-                    <v-text-field label="Preço"></v-text-field>
+                    <v-text-field v-model="valor" label="Preço"></v-text-field>
                   </v-col>
                 </v-row>
               </v-form>
@@ -51,7 +66,7 @@
       <template v-slot:item.3>
         <v-card title="Confira as informações colocadas" flat> </v-card>
         <div class="d-flex justify-end">
-          <v-btn color="primary">Finalizar</v-btn>
+          <v-btn @click="CreateProduto()" color="primary">Finalizar</v-btn>
         </div>
       </template>
     </v-stepper>
@@ -65,8 +80,63 @@ export default defineComponent({
   name: "FormCadastroProdutos",
   data() {
     return {
-      //
+      nome: "",
+      quantidade: 0,
+      valor: 0,
+      marca: "",
+      categoria: "",
+      cod_prod: 10,
+      autor: "",
     };
+  },
+  methods: {
+    async consumirApi() {
+      try {
+        const consumo = await fetch("http://localhost:3000/produtos", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+        if (!consumo.ok) {
+          return console.log("erro");
+        } else {
+          const respostaConsumo = await consumo.json();
+          console.log(respostaConsumo);
+          return respostaConsumo;
+        }
+      } catch (error) {
+        throw new Error("sexo");
+      }
+    },
+
+    async CreateProduto() {
+      try {
+        const res = await fetch("http://localhost:3000/produtos", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            nome: this.nome,
+            marca: this.marca,
+            categoria: this.categoria,
+            quantidade: this.quantidade,
+            valor: this.valor,
+            cod_prod: this.cod_prod,
+            autor: this.autor,
+          }),
+        });
+        if (!res.ok) {
+          return console.error("Erro linha 131");
+        } else {
+          const req = res.json();
+          return req;
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    },
   },
 });
 </script>

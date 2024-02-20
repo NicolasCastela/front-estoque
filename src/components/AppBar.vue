@@ -15,12 +15,9 @@
         ></v-img>
       </router-link>
 
-      <template>
-        <v-card class="mx-auto" max-width="300">
-          <v-list :items="items"></v-list>
-        </v-card>
-      </template>
       <template v-slot:append>
+        <v-btn icon="mdi-brightness-6"> </v-btn>
+
         <PerfilAppBar />
       </template>
     </v-app-bar>
@@ -44,7 +41,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, PropType } from "vue";
 import { LoginResponse, loginUser } from "@/services/usuarios.service";
 import PerfilAppBar from "@/Adds/PerfilAppBar.vue";
 
@@ -53,22 +50,9 @@ export default defineComponent({
   data() {
     return {
       drawerzin: false,
-      items: [
-        {
-          title: "Item #1",
-          value: 1,
-        },
-        {
-          title: "Item #2",
-          value: 2,
-        },
-        {
-          title: "Item #3",
-          value: 3,
-        },
-      ],
     };
   },
+
   mounted() {
     const userName = localStorage.getItem("userName");
   },

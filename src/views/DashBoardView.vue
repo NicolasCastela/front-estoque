@@ -1,7 +1,9 @@
 <template>
   <div class="about">
     <AppBar />
-    TODO Criação de Componentes na interface inicial.
+    TODO Criação de Componentes na interface inicial. --- TODO Criação da Tabela
+    de Produtos e colocar estado nos itens no passo 3 para mostrar tudo que está
+    sendo criado.
   </div>
 </template>
 
