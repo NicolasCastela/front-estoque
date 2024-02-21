@@ -93,7 +93,7 @@ export default defineComponent({
       valor: "",
       marca: "",
       categoria: "",
-      cod_prod: 12312321,
+      cod_prod: "",
       autor: "",
     };
   },
@@ -123,7 +123,7 @@ export default defineComponent({
 
     async CreateProduto() {
       try {
-        this.cod_prod = Math.floor(Math.random() * 100000000) + 1;
+        const cod_prod = parseInt(this.cod_prod);
         const quantidade = parseInt(this.quantidade);
         const valor = parseInt(this.valor);
         const res = await fetch("http://localhost:3000/produtos", {
@@ -137,7 +137,7 @@ export default defineComponent({
             categoria: this.categoria,
             quantidade,
             valor,
-            cod_prod: this.cod_prod,
+            cod_prod,
             autor: this.autor,
           }),
         });

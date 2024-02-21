@@ -13,33 +13,15 @@
             <th class="bg-green">Codigo Produto</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody v-for="(produto, index) in allProdutos" :key="index">
           <tr>
-            <td>Nome Inicial</td>
-            <td>Quantidade Inicial</td>
-            <td>Preço Inicial</td>
-            <td>Marca Inicial</td>
-            <td>Categoria Inicial</td>
-            <td>Id Inicial</td>
-            <td>Codigo do Produto</td>
-          </tr>
-          <tr>
-            <td>Nome Inicial</td>
-            <td>Quantidade Inicial</td>
-            <td>Preço Inicial</td>
-            <td>Marca Inicial</td>
-            <td>Categoria Inicial</td>
-            <td>Id Inicial</td>
-            <td>Codigo do Produto</td>
-          </tr>
-          <tr>
-            <td>Nome Inicial</td>
-            <td>Quantidade Inicial</td>
-            <td>Preço Inicial</td>
-            <td>Marca Inicial</td>
-            <td>Categoria Inicial</td>
-            <td>Id Inicial</td>
-            <td>Codigo do Produto</td>
+            <td>{{ produto.nome }}</td>
+            <td>{{ produto.quantidade }}</td>
+            <td>{{ produto.valor }}</td>
+            <td>{{ produto.marca }}</td>
+            <td>{{ produto.categoria }}</td>
+            <td>{{ index }}</td>
+            <td>{{ produto.cod_prod }}</td>
           </tr>
         </tbody>
       </v-table>
@@ -49,7 +31,10 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-
+import {
+  Produtos as ProdutoService,
+  fetchConsumirApi,
+} from "@/services/produtos.service";
 export default defineComponent({
   name: "TabelaProdutosTotais",
   components: {
@@ -57,8 +42,16 @@ export default defineComponent({
   },
   data() {
     return {
-      //
+      allProdutos: [] as ProdutoService[],
     };
+  },
+  mounted() {
+    this.fetchConsumirApi();
+  },
+  methods: {
+    async fetchConsumirApi() {
+      this.allProdutos = await fetchConsumirApi();
+    },
   },
 });
 </script>
