@@ -15,7 +15,6 @@
             title="Informaçõs do  Produto"
             flat
           >
-            <v-btn @click="consumirApi()">Ola</v-btn>
             <v-text-field v-model="nome" label="Nome do Produto"></v-text-field>
             <v-text-field v-model="marca" label="Marca"></v-text-field>
             <v-text-field v-model="categoria" label="Categoria"></v-text-field>
