@@ -20,11 +20,9 @@
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn color="green-darken-1" variant="text" @click="dialog = false">
-            Recusar
+            Fechar
           </v-btn>
-          <v-btn color="green-darken-1" variant="text" @click="dialog = false">
-            Aceitar
-          </v-btn>
+
         </v-card-actions>
       </v-card>
     </v-dialog>

@@ -137,12 +137,14 @@
                           type="password"
                           v-model="registerPassword"
                         />
+                        <p class="text-red   text-caption ">{{ messageFailedReg }}</p>
                         <v-row>
                           <v-col cols="12" sm="9">
                             <v-checkbox
                               label="Eu aceito o termo"
                               class="mt-n3"
                               color="blue"
+                              v-model="termAccepted"
                             >
                             </v-checkbox>
                           </v-col>
@@ -152,7 +154,7 @@
                             /></span>
                           </v-col>
                         </v-row>
-                        <v-btn @click="register()" color="blue" dark block tile>Criar conta</v-btn>
+                        <v-btn  @click="register() " color="blue" dark block tile>Criar conta</v-btn>
                       </v-col>
                     </v-row>
                   </v-card-text>
@@ -182,6 +184,9 @@ export default defineComponent({
       registerPassword: '',
       registerEmail: '',
       registerName: '',
+      termAccepted: false,
+      messageFailedReg: '',
+
     };
   },
   mounted() {
@@ -212,6 +217,9 @@ export default defineComponent({
     },
     async register() {
       try {
+        if (this.termAccepted === false) {
+        return this.messageFailedReg = 'Aceite os Termos para seguir em frente!'
+        }
         const response: LoginResponse = await createUser(
           this.registerName,
           this.registerEmail,
@@ -219,6 +227,7 @@ export default defineComponent({
         );
         if (response) {
           localStorage.setItem("userName", response.name);
+          this.step--
         }
       } catch (error: any) {
         console.log(error);
