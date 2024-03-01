@@ -29,6 +29,16 @@ const routes: Array<RouteRecordRaw> = [
     name: "Relatorio",
     component: () => import("../views/RelatorioView.vue"),
   },
+  {
+    path: "/conta",
+    name: "Configurações",
+    component: () => import("../views/ConfiguraçãoUsuarioView.vue"),
+  },
+  {
+    path: "/Ações",
+    name: "Ações",
+    component: () => import("../views/AçõesView.vue"),
+  },
 ];
 
 const router = createRouter({

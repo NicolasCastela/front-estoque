@@ -1,7 +1,7 @@
 <template>
   <v-container class="d-flex flex-row mb-6 justify-center">
     <v-stepper
-      prev-text=" Anterior"
+      prev-text="Anterior"
       :next-text="'Próximo'"
       class="w-100"
       editable
@@ -12,14 +12,14 @@
           <v-card
             class="mx-auto"
             width="400"
-            title="Informaçõs do  Produto"
+            title="Informações do Produto"
             flat
           >
             <v-text-field v-model="nome" label="Nome do Produto"></v-text-field>
             <v-text-field v-model="marca" label="Marca"></v-text-field>
             <v-text-field v-model="categoria" label="Categoria"></v-text-field>
           </v-card>
-          <!--Separar para ficar mais nitido-->
+          <!-- Separar para ficar mais nítido -->
           <v-card
             class="mx-auto"
             width="400"
@@ -33,7 +33,7 @@
             ></v-text-field>
             <v-text-field
               v-model="cod_prod"
-              label="Codigo do Produto"
+              label="Código do Produto"
               class="h-10"
             ></v-text-field>
           </v-card>
@@ -63,24 +63,65 @@
       </template>
 
       <template v-slot:item.3>
-        <v-card title="Confira as informações colocadas" flat>
-          <h3>Nome do Produto: {{ nome }}</h3>
-          <h3>Marca: {{ marca }}</h3>
-          <h3>Categoria: {{ categoria }}</h3>
-          <h3>Autor: {{ autor }}</h3>
-          <h3>Quantidade {{ quantidade }}</h3>
-          <h3>Valor: {{ valor }}</h3>
-          <h4>{{ cod_prod }}</h4>
+        <v-card class="confira-informacoes">
+          <v-card-title            >Confira as informações colocadas</v-card-title
+          >
+
+            <v-list>
+              <v-list-item>
+                <v-list-item-content>
+                  <v-list-item-title>Nome do Produto:</v-list-item-title>
+                  <v-list-item-subtitle>{{ nome }}</v-list-item-subtitle>
+                </v-list-item-content>
+              </v-list-item>
+              <v-list-item>
+                <v-list-item-content>
+                  <v-list-item-title>Marca:</v-list-item-title>
+                  <v-list-item-subtitle>{{ marca }}</v-list-item-subtitle>
+                </v-list-item-content>
+              </v-list-item>
+              <v-list-item>
+                <v-list-item-content>
+                  <v-list-item-title>Categoria:</v-list-item-title>
+                  <v-list-item-subtitle>{{ categoria }}</v-list-item-subtitle>
+                </v-list-item-content>
+              </v-list-item>
+              <v-list-item>
+                <v-list-item-content>
+                  <v-list-item-title>Autor:</v-list-item-title>
+                  <v-list-item-subtitle>{{ autor }}</v-list-item-subtitle>
+                </v-list-item-content>
+              </v-list-item>
+              <v-list-item>
+                <v-list-item-content>
+                  <v-list-item-title>Quantidade:</v-list-item-title>
+                  <v-list-item-subtitle>{{ quantidade }}</v-list-item-subtitle>
+                </v-list-item-content>
+              </v-list-item>
+              <v-list-item>
+                <v-list-item-content>
+                  <v-list-item-title>Valor:</v-list-item-title>
+                  <v-list-item-subtitle>{{ valor }}</v-list-item-subtitle>
+                </v-list-item-content>
+              </v-list-item>
+              <v-list-item>
+                <v-list-item-content>
+                  <v-list-item-title>Código do Produto:</v-list-item-title>
+                  <v-list-item-subtitle>{{ cod_prod }}</v-list-item-subtitle>
+                </v-list-item-content>
+              </v-list-item>
+            </v-list>
         </v-card>
         <div class="d-flex justify-end">
-          <v-btn @click="CreateProduto()" color="primary">Finalizar</v-btn>
+        <v-btn variant="tonal" @click="CreateProduto()" color="primary">Finalizar</v-btn>
+
         </div>
       </template>
     </v-stepper>
   </v-container>
 </template>
 
-<script lang="ts">
+<script>
 import { defineComponent } from "vue";
 
 export default defineComponent({
@@ -107,16 +148,15 @@ export default defineComponent({
           },
         });
         if (!consumo.ok) {
-          return console.log("erro");
-        } else {
-          const respostaConsumo = await consumo.json();
-          console.log(respostaConsumo);
-          return respostaConsumo;
+          console.error("Erro na requisição");
+          return;
         }
+        const respostaConsumo = await consumo.json();
+        console.log(respostaConsumo);
+        return respostaConsumo;
       } catch (error) {
         console.error("Erro de rede ao criar produto", error);
-
-        throw Error("sexoasdasdasdasdasd");
+        throw Error("Erro ao consumir API");
       }
     },
 
@@ -124,7 +164,7 @@ export default defineComponent({
       try {
         const cod_prod = parseInt(this.cod_prod);
         const quantidade = parseInt(this.quantidade);
-        const valor = parseInt(this.valor);
+        const valor = parseFloat(this.valor);
         const res = await fetch("http://localhost:3000/produtos", {
           method: "POST",
           headers: {
@@ -141,17 +181,22 @@ export default defineComponent({
           }),
         });
         if (!res.ok) {
-          return console.error("Erro linha 131");
-        } else {
-          const req = res.json();
-          return req;
+          console.error("Erro ao criar produto");
+          return;
         }
+        const req = await res.json();
+        console.log(req);
+        return req;
       } catch (err) {
-        console.error(err);
+        console.error("Erro ao criar produto", err);
       }
     },
   },
 });
 </script>
 
-<style></style>
+<style scoped>
+.confira-informacoes {
+  margin-bottom: 20px;
+}
+</style>

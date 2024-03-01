@@ -13,13 +13,11 @@
 
         <v-divider></v-divider>
         <v-list-item width="100%" class="pa-0 ma-0">
-          <v-btn width="100%" variant="plain" @click="logout()"
+          <v-btn width="100%" variant="plain" @click="configRoute()"
             >Configurações
           </v-btn>
         </v-list-item>
-        <v-list-item width="100%" class="pa-0 ma-0">
-          <v-btn width="100%" variant="plain" @click="logout()">Conta </v-btn>
-        </v-list-item>
+
         <v-list-item width="100%" class="pa-0 ma-0">
           <v-btn width="100%" color="red" variant="plain" @click="logout()">
             Sair
@@ -49,6 +47,9 @@ export default defineComponent({
     logout() {
       localStorage.removeItem("userName");
       this.$router.push("/");
+    },
+    configRoute() {
+      this.$router.push("/conta");
     },
   },
 });

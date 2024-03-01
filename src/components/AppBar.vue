@@ -28,13 +28,9 @@
       <v-divider />
       <v-list-item to="/Relatorio" link title="Relatório"></v-list-item>
       <v-divider />
-      <v-list-item link title="Vendas"></v-list-item>
+      <v-list-item to="/Ações" link title="Ações"></v-list-item>
       <v-divider />
-      <v-list-item
-        to="/cadastroProdutos"
-        link
-        title="Cadastro de Produtos"
-      ></v-list-item>
+      <v-list-item to="/cadastroProdutos" link title="Cadastro de Produtos"></v-list-item>
       <v-divider />
     </v-navigation-drawer>
   </v-container>

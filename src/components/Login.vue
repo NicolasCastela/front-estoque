@@ -118,6 +118,7 @@
                           color="blue"
                           autocomplete="false"
                           class="mt-4"
+                          v-model="registerName"
                         />
                         <v-text-field
                           label="Email"
@@ -125,6 +126,7 @@
                           dense
                           color="blue"
                           autocomplete="false"
+                          v-model="registerEmail"
                         />
                         <v-text-field
                           label="Password"
@@ -133,6 +135,7 @@
                           color="blue"
                           autocomplete="false"
                           type="password"
+                          v-model="registerPassword"
                         />
                         <v-row>
                           <v-col cols="12" sm="9">
@@ -149,7 +152,7 @@
                             /></span>
                           </v-col>
                         </v-row>
-                        <v-btn color="blue" dark block tile>Criar conta</v-btn>
+                        <v-btn @click="register()" color="blue" dark block tile>Criar conta</v-btn>
                       </v-col>
                     </v-row>
                   </v-card-text>
@@ -165,7 +168,7 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { LoginResponse, loginUser } from "@/services/usuarios.service";
+import { LoginResponse, loginUser, createUser } from "@/services/usuarios.service";
 import TermoServicos from "@/Adds/TermoServicos.vue";
 export default defineComponent({
   name: "Login",
@@ -176,6 +179,9 @@ export default defineComponent({
       loginPassword: "",
       messageFailed: "",
       user: "",
+      registerPassword: '',
+      registerEmail: '',
+      registerName: '',
     };
   },
   mounted() {
@@ -204,6 +210,21 @@ export default defineComponent({
         //   this.messageFailed = "Credenciais inválidas";
       }
     },
+    async register() {
+      try {
+        const response: LoginResponse = await createUser(
+          this.registerName,
+          this.registerEmail,
+          this.registerPassword
+        );
+        if (response) {
+          localStorage.setItem("userName", response.name);
+        }
+      } catch (error: any) {
+        console.log(error);
+        this.messageFailed = error.message;
+      }
+    }
   },
   components: {
     TermoServicos,

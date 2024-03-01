@@ -80,5 +80,34 @@ async function loginUser(
     throw error;
   }
 }
-
-export { User, getUsers, loginUser, LoginResponse };
+async function createUser(
+  name: string,
+  email: string,
+  password: string
+): Promise<LoginResponse> {
+  try {
+    const response = await fetch("http://localhost:3000/users", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name,
+        email,
+        password,
+      }),
+    });
+    if (!response.ok) {
+      throw new Error("sexo");
+    } else {
+      const data = await response.json();
+      console.log("------------------------------");
+      console.log(data);
+      console.log("------------------------------");
+      return data;
+    }
+  } catch (e) {
+    throw new Error("Erro ao criar usuario");
+  }
+}
+export { createUser, getUsers, loginUser, LoginResponse, User };

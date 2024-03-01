@@ -5,10 +5,6 @@
     <h1>{{ usuarios.password }}</h1>
     <h1>{{ usuarios.name }}</h1>
     <v-divider />
-    <v-divider />
-    <v-divider />
-    <v-divider />
-    <v-divider />
   </div>
 </template>
 <script lang="ts">
